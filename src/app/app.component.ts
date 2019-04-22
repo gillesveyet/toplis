@@ -1,0 +1,111 @@
+import { Component, HostListener, ViewChild, ElementRef } from '@angular/core';
+import { PointF } from './model/PointF';
+import { Canvas2D } from './services/Canvas2D';
+import { Util } from './services/Util';
+
+@Component({
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss']
+})
+export class AppComponent {
+    ctx: CanvasRenderingContext2D;
+
+    edit = true;
+    dOA = 1200;
+    dAB = 290;
+    dBC = this.dAB * Math.sin(Util.rad(45)) | 0;      // For initial value, assume that angle BAC = 45°
+
+    rMin = 20;
+    rMax = 70;
+    r:number= this.rMin;
+
+    pD = new PointF(-12.7, 290);
+
+    @ViewChild('canCrane') canvasRef: ElementRef;
+
+    ngOnInit() {
+        this.ctx=  this.canvasRef.nativeElement.getContext('2d');
+        this.drawCrane();
+        //this.test();
+    }
+
+    onEditChange() {
+        console.log(`onEditChange:${this.edit}`)
+    }
+
+    onSettingsChange() {
+    }
+
+    onAngleChange(){
+        this.drawCrane();
+    }
+
+    drawCrane() {
+        let angle = Util.rad(this.r);
+        let can = new Canvas2D(this.ctx, Math.min(this.pD.x, 0) - 10, this.dOA);
+
+        let dAC = Math.sqrt(this.dAB * this.dAB - this.dBC * this.dBC);
+        let dOC = this.dOA - dAC;
+
+        let pA = new PointF(this.dOA, 0).rotate(angle);
+        let pC = new PointF(dOC, 0).rotate(angle);
+        let pB = new PointF(dOC, this.dBC).rotate(angle);
+        let pM = new PointF(pA.x, 0);
+
+        let pE = new PointF(this.pD.x, 0);
+
+        can.clear();
+        const colorBoom = 'red';
+
+        can.drawLine(PointF.Origin, pA, colorBoom, 5);
+        can.drawLine(pB, pC, colorBoom, 3);
+
+        const colorDrum = 'orange';
+        can.drawLine(pE, this.pD, colorDrum, 3);
+
+        const colorRope = 'blue';
+        can.drawLine(this.pD, pB, colorRope, 1);
+        can.drawLine(pB, pA, colorRope, 1);
+        can.drawLine(pA, pM, colorRope, 1);
+
+    }
+
+    // test() {
+    //     let can = new Canvas2D(this.ctx, 0, 500);
+    //     let pA = new PointF(50, 90);
+    //     let pB = new PointF(500, 500);
+    //     can.drawLine(PointF.Origin, pA, 'red');
+    //     can.drawLine(PointF.Origin, pB, 'red');
+    //     can.drawLine(pA, pB, 'red');
+    // }
+
+    // deferredInstallPrompt: any;
+    // showInstallButton = false;
+    // @HostListener('window:beforeinstallprompt', ['$event'])
+    // onbeforeinstallprompt(e) {
+    //     console.log(e);
+    //     // Prevent Chrome 67 and earlier from automatically showing the prompt
+    //     e.preventDefault();
+    //     // Stash the event so it can be triggered later.
+    //     this.deferredInstallPrompt = e;
+    //     this.showInstallButton = true;
+    // }
+    // addToHomeScreen() {
+    //     // hide our user interface that shows our A2HS button
+    //     this.showInstallButton = false;
+    //     // Show the prompt
+    //     this.deferredInstallPrompt.prompt();
+    //     // Wait for the user to respond to the prompt
+    //     this.deferredInstallPrompt.userChoice
+    //         .then((choiceResult) => {
+    //             if (choiceResult.outcome === 'accepted') {
+    //                 console.log('User accepted the A2HS prompt');
+    //             } else {
+    //                 console.log('User dismissed the A2HS prompt');
+    //             }
+    //             this.deferredInstallPrompt = null;
+    //         });
+    // }
+
+}

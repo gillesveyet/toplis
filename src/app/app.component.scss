@@ -1,0 +1,32 @@
+.container {
+    display: flex;
+    flex-direction: row;
+}
+
+.form-item > label{
+padding: 10px;
+}
+
+.crane-panel {
+    display: flex;
+}
+
+.settings-panel {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.form-item {
+    display: flex;
+}
+
+.can-crane {
+    border: 1px solid black;
+    //background-image: url("../media/Checker.png");
+    background-size: contain;
+
+    // Only set the element’s size and not the drawing surface => do not use CSS to set canvas size.
+    // width: 600px;
+    // height: 600px;
+}
