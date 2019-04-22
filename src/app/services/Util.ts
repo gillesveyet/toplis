@@ -12,7 +12,7 @@ export class Util {
     static calcDistance(a: PointF, b: PointF): number {
         let dx = a.x - b.x;
         let dy = a.y - b.y;
-        return Math.sqrt(dx * dx + dy + dy);
+        return Math.sqrt(dx * dx + dy * dy);
 
     }
 }

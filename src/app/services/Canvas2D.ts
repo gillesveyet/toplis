@@ -14,7 +14,7 @@ export class Canvas2D {
     readonly height: number;
     readonly scale: number;
 
-    constructor(private ctx: CanvasRenderingContext2D, private xmin: number, xmax: number, private ymin: number) {
+    constructor(private ctx: CanvasRenderingContext2D, public xmin: number, public xmax: number, public ymin: number) {
         this.width = ctx.canvas.width;
         this.height = ctx.canvas.height;
         this.scale = this.width / (xmax - xmin);
@@ -26,13 +26,14 @@ export class Canvas2D {
         this.ctx.clearRect(0, 0, this.width, this.height);
     }
 
-    drawLine(a: PointF, b: PointF, color: string, width = 1) {
+    drawLine(a: PointF, b: PointF, color = 'black', width = 1, dash: number[] = []) {
         let ctx = this.ctx;
 
         let ca = this.convert(a);
         let cb = this.convert(b);
 
         ctx.beginPath();
+        ctx.setLineDash(dash);
         ctx.strokeStyle = color;
         ctx.lineWidth = width;
         ctx.lineCap = 'round';

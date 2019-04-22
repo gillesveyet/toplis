@@ -22,11 +22,13 @@ export class AppComponent {
     dAB = 290;
     dBC = this.dAB * Math.sin(Util.rad(45)) | 0;      // For initial value, assume that angle BAC = 45°
 
+    nbRopes = 3;
+
     rMin = 20;
     rMax = 70;
     r: number = this.rMin;
 
-    pD = new PointF(-12.7, 290);
+    pD = new PointF(-12.7, 500);
 
     @ViewChild('canCrane') canvasRef: ElementRef;
 
@@ -69,8 +71,8 @@ export class AppComponent {
             let d0 = Util.calcDistance(rc0.b, this.pD);
             let d = Util.calcDistance(rc.b, this.pD);
 
-            h = (d0 - d) * 3 / 2 + rc.a.y - rc0.a.y;
-            console.log( `r:${this.r} h:${h}`);
+            h = (d - d0) * this.nbRopes / 2 + rc.a.y - rc0.a.y;
+            console.log(`r:${this.r}  d0:${d0 | 0} d:${d | 0}  d0-d::${d0 - d | 0} h:${h}`);
         }
 
         let pM = new PointF(rc.a.x, h);
@@ -78,8 +80,9 @@ export class AppComponent {
         let pE = new PointF(this.pD.x, 0);
 
         can.clear();
-        const colorBoom = 'red';
+        can.drawLine(new PointF(can.xmin, 0), new PointF(can.xmax, 0), 'black', 1, [3, 2]);
 
+        const colorBoom = 'red';
         can.drawLine(PointF.Origin, rc.a, colorBoom, 5);
         can.drawLine(rc.b, rc.b, colorBoom, 3);
 
