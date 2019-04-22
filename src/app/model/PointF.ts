@@ -9,9 +9,9 @@ export class PointF {
         return new PointF(this.x * cos - this.y * sin, this.x * sin + this.y * cos);
     }
 
-    static makePoint(radius: number, angle: number): PointF {
-        return (new PointF(radius, 0)).rotate(angle);
-    }
+    // static makePoint(radius: number, angle: number): PointF {
+    //     return (new PointF(radius, 0)).rotate(angle);
+    // }
 
     toString() {
         return `{${this.x.toFixed(1)}, ${this.y.toFixed(1)}}`;

@@ -1,8 +1,6 @@
 <div class="container">
 
     <div class="settings-panel">
-        <p-toggleButton onLabel="Edit mode (click to confirm settings)" offLabel="Click to change settings" [(ngModel)]="edit" (onChange)="onEditChange($event)"></p-toggleButton>
-
         <div class="form-item">
             <label>OA (mm)</label>
             <p-spinner [(ngModel)]="dOA" [min]="1" [max]="2000" [step]="1" (onChange)="onSettingsChange()"></p-spinner>
@@ -20,7 +18,7 @@
 
         <div class="form-item">
             <label>OE (mm)</label>
-            <p-spinner [(ngModel)]="pD.x" [min]="-500" [max]="500" [step]="1" (onChange)="onSettingsChange()"></p-spinner>
+            <p-spinner [(ngModel)]="pD.x" [min]="-100" [max]="200" [step]="1" (onChange)="onSettingsChange()"></p-spinner>
         </div>
 
         <div class="form-item">
@@ -35,12 +33,15 @@
 
         <div class="form-item">
             <label>Angle Max (high)</label>
-            <p-spinner [(ngModel)]="rMax" [min]="rMin" [max]="90" [step]="1" ></p-spinner>
+            <p-spinner [(ngModel)]="rMax" [min]="rMin" [max]="90" [step]="1"></p-spinner>
         </div>
     </div>
 
+    <div class="slider-panel">
+        <p-slider styleClass="slider" [(ngModel)]="r" [min]="rMin" [max]="rMax" [step]="1" orientation="vertical" (onChange)="onAngleChange()"></p-slider>
+    </div>
+
     <div class="crane-panel">
-        <p-slider [(ngModel)]="r" [min]="rMin" [max]="rMax" [step]="1" orientation="vertical" (onChange)="onAngleChange()"></p-slider>
 
         <canvas #canCrane class="can-crane" width="600" height="600"> </canvas>
     </div>

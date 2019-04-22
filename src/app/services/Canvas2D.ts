@@ -14,12 +14,12 @@ export class Canvas2D {
     readonly height: number;
     readonly scale: number;
 
-    constructor(private ctx: CanvasRenderingContext2D, private xmin: number, xmax: number) {
+    constructor(private ctx: CanvasRenderingContext2D, private xmin: number, xmax: number, private ymin: number) {
         this.width = ctx.canvas.width;
         this.height = ctx.canvas.height;
         this.scale = this.width / (xmax - xmin);
-        console.log(`Canvas width:${ctx.canvas.width} height:${ctx.canvas.height}`)
-        console.log(`xmin:${xmin} xmax:${xmax} scale:${this.scale}`)
+        // console.log(`Canvas width:${ctx.canvas.width} height:${ctx.canvas.height}`)
+        // console.log(`xmin:${xmin} xmax:${xmax} scale:${this.scale}`)
     }
 
     clear() {
@@ -44,7 +44,7 @@ export class Canvas2D {
     }
 
     convert(p: PointF) {
-        return new Point((p.x - this.xmin) * this.scale | 0, this.height - p.y * this.scale | 0);
+        return new Point((p.x - this.xmin) * this.scale | 0, this.height - (p.y - this.ymin) * this.scale | 0);
     }
 
 }

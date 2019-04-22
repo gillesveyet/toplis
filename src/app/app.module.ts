@@ -8,7 +8,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
 
-import { ButtonModule, ToggleButtonModule, SpinnerModule, SliderModule } from 'primeng/primeng';
+import { ButtonModule, SpinnerModule, SliderModule } from 'primeng/primeng';
 
 @NgModule({
     declarations: [
@@ -18,7 +18,6 @@ import { ButtonModule, ToggleButtonModule, SpinnerModule, SliderModule } from 'p
         BrowserModule,
         FormsModule,
         ButtonModule,
-        ToggleButtonModule,
         SpinnerModule,
         SliderModule,
         AppRoutingModule,

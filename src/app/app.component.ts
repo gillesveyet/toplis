@@ -3,6 +3,13 @@ import { PointF } from './model/PointF';
 import { Canvas2D } from './services/Canvas2D';
 import { Util } from './services/Util';
 
+
+class Result {
+    constructor(public a: PointF, public b: PointF, public c: PointF) {
+    }
+}
+
+
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
@@ -11,74 +18,80 @@ import { Util } from './services/Util';
 export class AppComponent {
     ctx: CanvasRenderingContext2D;
 
-    edit = true;
     dOA = 1200;
     dAB = 290;
     dBC = this.dAB * Math.sin(Util.rad(45)) | 0;      // For initial value, assume that angle BAC = 45°
 
     rMin = 20;
     rMax = 70;
-    r:number= this.rMin;
+    r: number = this.rMin;
 
     pD = new PointF(-12.7, 290);
 
     @ViewChild('canCrane') canvasRef: ElementRef;
 
     ngOnInit() {
-        this.ctx=  this.canvasRef.nativeElement.getContext('2d');
+        this.ctx = this.canvasRef.nativeElement.getContext('2d');
         this.drawCrane();
-        //this.test();
-    }
-
-    onEditChange() {
-        console.log(`onEditChange:${this.edit}`)
     }
 
     onSettingsChange() {
-    }
-
-    onAngleChange(){
         this.drawCrane();
     }
 
-    drawCrane() {
-        let angle = Util.rad(this.r);
-        let can = new Canvas2D(this.ctx, Math.min(this.pD.x, 0) - 10, this.dOA);
+    onAngleChange() {
+        this.drawCrane();
+    }
 
+
+    compute(angle: number): Result {
         let dAC = Math.sqrt(this.dAB * this.dAB - this.dBC * this.dBC);
         let dOC = this.dOA - dAC;
 
         let pA = new PointF(this.dOA, 0).rotate(angle);
         let pC = new PointF(dOC, 0).rotate(angle);
         let pB = new PointF(dOC, this.dBC).rotate(angle);
-        let pM = new PointF(pA.x, 0);
+
+        return new Result(pA, pB, pC);
+    }
+
+    drawCrane() {
+        let angle = Util.rad(this.r);
+        let can = new Canvas2D(this.ctx, Math.min(this.pD.x, 0) - 20, this.dOA, -100);
+
+        let rc: Result = this.compute(angle);
+
+        let h = 0;
+
+        if (this.r !== this.rMin) {
+            let rc0: Result = this.compute(Util.rad(this.rMin));
+
+            let d0 = Util.calcDistance(rc0.b, this.pD);
+            let d = Util.calcDistance(rc.b, this.pD);
+
+            h = (d0 - d) * 3 / 2 + rc.a.y - rc0.a.y;
+            console.log( `r:${this.r} h:${h}`);
+        }
+
+        let pM = new PointF(rc.a.x, h);
 
         let pE = new PointF(this.pD.x, 0);
 
         can.clear();
         const colorBoom = 'red';
 
-        can.drawLine(PointF.Origin, pA, colorBoom, 5);
-        can.drawLine(pB, pC, colorBoom, 3);
+        can.drawLine(PointF.Origin, rc.a, colorBoom, 5);
+        can.drawLine(rc.b, rc.b, colorBoom, 3);
 
         const colorDrum = 'orange';
         can.drawLine(pE, this.pD, colorDrum, 3);
 
         const colorRope = 'blue';
-        can.drawLine(this.pD, pB, colorRope, 1);
-        can.drawLine(pB, pA, colorRope, 1);
-        can.drawLine(pA, pM, colorRope, 1);
+        can.drawLine(this.pD, rc.b, colorRope, 1);
+        can.drawLine(rc.b, rc.a, colorRope, 1);
+        can.drawLine(rc.a, pM, colorRope, 1);
 
     }
-
-    // test() {
-    //     let can = new Canvas2D(this.ctx, 0, 500);
-    //     let pA = new PointF(50, 90);
-    //     let pB = new PointF(500, 500);
-    //     can.drawLine(PointF.Origin, pA, 'red');
-    //     can.drawLine(PointF.Origin, pB, 'red');
-    //     can.drawLine(pA, pB, 'red');
-    // }
 
     // deferredInstallPrompt: any;
     // showInstallButton = false;

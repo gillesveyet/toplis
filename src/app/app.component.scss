@@ -3,8 +3,12 @@
     flex-direction: row;
 }
 
-.form-item > label{
-padding: 10px;
+.container>div {
+    padding: 10px;
+}
+
+.form-item>label {
+    padding: 10px;
 }
 
 .crane-panel {
@@ -14,12 +18,20 @@ padding: 10px;
 .settings-panel {
     display: flex;
     flex-direction: column;
-
 }
 
 .form-item {
     display: flex;
 }
+
+.slider-panel{
+    display: flex;
+}
+
+// .slider {
+//     height: 500px;
+//     flex: 1;
+// }
 
 .can-crane {
     border: 1px solid black;
