@@ -57,23 +57,21 @@ export class AppComponent {
         return new Result(pA, pB, pC);
     }
 
+
+    computeHeight(rc0: Result, rc: Result) {
+        let d0 = Util.calcDistance(rc0.b, this.pD);
+        let d = Util.calcDistance(rc.b, this.pD);
+        return (d - d0) * this.nbRopes / 2 + rc.a.y - rc0.a.y;
+    }
+
     drawCrane() {
         let angle = Util.rad(this.r);
         let can = new Canvas2D(this.ctx, Math.min(this.pD.x, 0) - 20, this.dOA, -100);
 
+        let rc0: Result = this.compute(Util.rad(this.rMin));
         let rc: Result = this.compute(angle);
 
-        let h = 0;
-
-        if (this.r !== this.rMin) {
-            let rc0: Result = this.compute(Util.rad(this.rMin));
-
-            let d0 = Util.calcDistance(rc0.b, this.pD);
-            let d = Util.calcDistance(rc.b, this.pD);
-
-            h = (d - d0) * this.nbRopes / 2 + rc.a.y - rc0.a.y;
-            console.log(`r:${this.r}  d0:${d0 | 0} d:${d | 0}  d0-d::${d0 - d | 0} h:${h}`);
-        }
+        let h = this.computeHeight(rc0, rc);
 
         let pM = new PointF(rc.a.x, h);
 
@@ -84,7 +82,7 @@ export class AppComponent {
 
         const colorBoom = 'red';
         can.drawLine(PointF.Origin, rc.a, colorBoom, 5);
-        can.drawLine(rc.b, rc.b, colorBoom, 3);
+        can.drawLine(rc.b, rc.c, colorBoom, 3);
 
         const colorDrum = 'orange';
         can.drawLine(pE, this.pD, colorDrum, 3);
@@ -93,6 +91,20 @@ export class AppComponent {
         can.drawLine(this.pD, rc.b, colorRope, 1);
         can.drawLine(rc.b, rc.a, colorRope, 1);
         can.drawLine(rc.a, pM, colorRope, 1);
+
+        const colorGraph = 'green';
+        let prev: PointF;
+
+        for (let i = this.rMin; i <= this.rMax; i += 5) {
+            let ri: Result = this.compute(Util.rad(i));
+            let hi = this.computeHeight(rc0, ri);
+            let p = new PointF(ri.a.x, hi);
+
+            if (prev)
+                can.drawLine(prev, p, colorGraph, 1);
+
+            prev = p;
+        }
 
     }
 
