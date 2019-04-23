@@ -30,14 +30,18 @@ export class AppComponent {
 
     pD = new PointF(-12.7, 500);
 
+    rc0: Result;
+    graph: PointF[];
+
     @ViewChild('canCrane') canvasRef: ElementRef;
 
     ngOnInit() {
         this.ctx = this.canvasRef.nativeElement.getContext('2d');
-        this.drawCrane();
+        this.onSettingsChange();
     }
 
     onSettingsChange() {
+        this.updateGraph();
         this.drawCrane();
     }
 
@@ -45,8 +49,7 @@ export class AppComponent {
         this.drawCrane();
     }
 
-
-    compute(angle: number): Result {
+    computePoints(angle: number): Result {
         let dAC = Math.sqrt(this.dAB * this.dAB - this.dBC * this.dBC);
         let dOC = this.dOA - dAC;
 
@@ -57,24 +60,31 @@ export class AppComponent {
         return new Result(pA, pB, pC);
     }
 
-
-    computeHeight(rc0: Result, rc: Result) {
-        let d0 = Util.calcDistance(rc0.b, this.pD);
+    computeHeight(rc: Result) {
+        let d0 = Util.calcDistance(this.rc0.b, this.pD);
         let d = Util.calcDistance(rc.b, this.pD);
-        return (d - d0) * this.nbRopes / 2 + rc.a.y - rc0.a.y;
+        return (d - d0) * this.nbRopes / 2 + rc.a.y - this.rc0.a.y;
+    }
+
+    updateGraph() {
+        this.rc0 = this.computePoints(Util.rad(this.rMin));
+        this.graph = []
+
+        for (let i = this.rMin; i <= this.rMax; i += 5) {
+            let ri: Result = this.computePoints(Util.rad(i));
+            let hi = this.computeHeight(ri);
+            this.graph.push(new PointF(ri.a.x, hi));
+        }
     }
 
     drawCrane() {
         let angle = Util.rad(this.r);
         let can = new Canvas2D(this.ctx, Math.min(this.pD.x, 0) - 20, this.dOA, -100);
 
-        let rc0: Result = this.compute(Util.rad(this.rMin));
-        let rc: Result = this.compute(angle);
+        let rc: Result = this.computePoints(angle);
 
-        let h = this.computeHeight(rc0, rc);
-
+        let h = this.computeHeight(rc);
         let pM = new PointF(rc.a.x, h);
-
         let pE = new PointF(this.pD.x, 0);
 
         can.clear();
@@ -95,17 +105,12 @@ export class AppComponent {
         const colorGraph = 'green';
         let prev: PointF;
 
-        for (let i = this.rMin; i <= this.rMax; i += 5) {
-            let ri: Result = this.compute(Util.rad(i));
-            let hi = this.computeHeight(rc0, ri);
-            let p = new PointF(ri.a.x, hi);
-
+        for (let p of this.graph) {
             if (prev)
                 can.drawLine(prev, p, colorGraph, 1);
 
             prev = p;
         }
-
     }
 
     // deferredInstallPrompt: any;
