@@ -39,7 +39,7 @@
 
         <div class="form-item">
             <label>Angle Max (high)</label>
-            <p-spinner [(ngModel)]="rMax" [min]="0" [max]="90" [step]="1"></p-spinner>
+            <p-spinner [(ngModel)]="rMax" [min]="0" [max]="90" [step]="1" (onChange)="onSettingsChange()"></p-spinner>
         </div>
     </div>
 

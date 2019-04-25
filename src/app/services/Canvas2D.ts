@@ -1,5 +1,8 @@
 import { PointF } from '../model/PointF';
 
+//From lib.dom.d.ts (https://github.com/Microsoft/TypeScript/blob/master/lib/lib.dom.d.ts)
+//  type CanvasTextAlign = "start" | "end" | "left" | "right" | "center";
+//  type CanvasTextBaseline = "top" | "hanging" | "middle" | "alphabetic" | "ideographic" | "bottom";
 
 class Point {
     constructor(public x: number, public y: number) { };
@@ -42,6 +45,16 @@ export class Canvas2D {
         ctx.stroke();
 
         //console.log(`drawLine ${a} to ${b} => ${ca} to ${cb}`);
+    }
+
+    drawText(p: PointF, text: string, font: string = '10px sans-serif', textAlign: CanvasTextAlign = "start", textBaseline: CanvasTextBaseline = 'alphabetic') {
+        let ctx = this.ctx;
+        let cp = this.convert(p);
+
+        ctx.font = font;
+        ctx.textAlign = textAlign;
+        ctx.textBaseline = textBaseline;
+        ctx.fillText(text, cp.x, cp.y);
     }
 
     convert(p: PointF) {

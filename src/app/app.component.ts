@@ -18,7 +18,7 @@ class Result {
 export class AppComponent {
     ctx: CanvasRenderingContext2D;
 
-    dOA = 1200;
+    dOA = 920;
     dAB = 290;
     dBC = this.dAB * Math.sin(Util.rad(45)) | 0;      // For initial value, assume that angle BAC = 45°
 
@@ -79,7 +79,7 @@ export class AppComponent {
 
     drawCrane() {
         let angle = Util.rad(this.r);
-        let can = new Canvas2D(this.ctx, Math.min(this.pD.x, 0) - 20, this.dOA, -100);
+        let can = new Canvas2D(this.ctx, Math.min(this.pD.x, 0) - 50, this.dOA, -100);
 
         let rc: Result = this.computePoints(angle);
 
@@ -111,6 +111,16 @@ export class AppComponent {
 
             prev = p;
         }
+
+        let font = '20px Arial';
+
+        can.drawText(PointF.Origin, "O", font, 'left', 'top');
+        can.drawText(rc.a, 'A', font, 'left', 'bottom');
+        can.drawText(rc.b, 'B', font, 'left', 'bottom');;
+        can.drawText(rc.c, 'C', font, 'left', 'top');
+        can.drawText(this.pD, 'D', font, 'left', 'bottom');
+        can.drawText(pE, 'E', font, 'right', 'top');
+
     }
 
     // deferredInstallPrompt: any;
