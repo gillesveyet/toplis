@@ -119,7 +119,7 @@ export class AppComponent {
         can.drawText(rc.b, 'B', font, 'left', 'bottom');;
         can.drawText(rc.c, 'C', font, 'left', 'top');
         can.drawText(this.pD, 'D', font, 'left', 'bottom');
-        can.drawText(pE, 'E', font, 'right', 'top');
+        can.drawText(pE, 'E', font, 'right', 'bottom');
 
     }
 
