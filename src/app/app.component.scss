@@ -3,28 +3,34 @@
     flex-direction: row;
 }
 
-.container>div {
-    padding: 10px;
+.settings-panel {
+    background-color: whitesmoke;
+    padding: 0;
+    border-radius: 3px;
+}
+
+.form-item {
+    display: flex;
+    justify-content: flex-end;
+    padding: .5em;
 }
 
 .form-item>label {
-    padding: 10px;
+    padding: .5em 1em .5em 0;
+    flex: 3;
 }
+
+.form-item>input {
+    padding: .5em;
+    flex: 1;
+}
+
 
 .crane-panel {
     display: flex;
 }
 
-.settings-panel {
-    display: flex;
-    flex-direction: column;
-}
-
-.form-item {
-    display: flex;
-}
-
-.slider-panel{
+.slider-panel {
     display: flex;
 }
 
