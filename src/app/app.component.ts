@@ -18,9 +18,9 @@ class Result {
 export class AppComponent {
     ctx: CanvasRenderingContext2D;
 
-    dOA = 920;
-    dAB = 290;
-    dBC = this.dAB * Math.sin(Util.rad(45)) | 0;      // For initial value, assume that angle BAC = 45°
+    dOB = 920;
+    dAB = 205;
+    dAC = 205;
 
     nbRopes = 3;
 
@@ -50,20 +50,18 @@ export class AppComponent {
     }
 
     computePoints(angle: number): Result {
-        let dAC = Math.sqrt(this.dAB * this.dAB - this.dBC * this.dBC);
-        let dOC = this.dOA - dAC;
-
-        let pA = new PointF(this.dOA, 0).rotate(angle);
-        let pC = new PointF(dOC, 0).rotate(angle);
-        let pB = new PointF(dOC, this.dBC).rotate(angle);
+        let dOA = this.dOB-this.dAB;
+        let pA = new PointF(dOA, 0).rotate(angle);
+        let pB = new PointF(this.dOB, 0).rotate(angle);
+        let pC = new PointF(dOA, this.dAC).rotate(angle);
 
         return new Result(pA, pB, pC);
     }
 
     computeHeight(rc: Result) {
-        let d0 = Util.calcDistance(this.rc0.b, this.pD);
-        let d = Util.calcDistance(rc.b, this.pD);
-        return (d - d0) * this.nbRopes / 2 + rc.a.y - this.rc0.a.y;
+        let d0 = Util.calcDistance(this.rc0.c, this.pD);
+        let d = Util.calcDistance(rc.c, this.pD);
+        return (d - d0) * this.nbRopes / 2 + rc.b.y - this.rc0.b.y;
     }
 
     updateGraph() {
@@ -73,34 +71,34 @@ export class AppComponent {
         for (let i = this.rMin; i <= this.rMax; i += 5) {
             let ri: Result = this.computePoints(Util.rad(i));
             let hi = this.computeHeight(ri);
-            this.graph.push(new PointF(ri.a.x, hi));
+            this.graph.push(new PointF(ri.b.x, hi));
         }
     }
 
     drawCrane() {
         let angle = Util.rad(this.r);
-        let can = new Canvas2D(this.ctx, Math.min(this.pD.x, 0) - 50, this.dOA, -100);
+        let can = new Canvas2D(this.ctx, Math.min(this.pD.x, 0) - 50, this.dOB, -100);
 
         let rc: Result = this.computePoints(angle);
 
         let h = this.computeHeight(rc);
-        let pM = new PointF(rc.a.x, h);
+        let pM = new PointF(rc.b.x, h);
         let pE = new PointF(this.pD.x, 0);
 
         can.clear();
         can.drawLine(new PointF(can.xmin, 0), new PointF(can.xmax, 0), 'black', 1, [3, 2]);
 
         const colorBoom = 'red';
-        can.drawLine(PointF.Origin, rc.a, colorBoom, 5);
-        can.drawLine(rc.b, rc.c, colorBoom, 3);
+        can.drawLine(PointF.Origin, rc.b, colorBoom, 5);
+        can.drawLine(rc.a, rc.c, colorBoom, 3);
 
         const colorDrum = 'orange';
         can.drawLine(pE, this.pD, colorDrum, 3);
 
         const colorRope = 'blue';
-        can.drawLine(this.pD, rc.b, colorRope, 1);
-        can.drawLine(rc.b, rc.a, colorRope, 1);
-        can.drawLine(rc.a, pM, colorRope, 1);
+        can.drawLine(this.pD, rc.c, colorRope, 1);
+        can.drawLine(rc.c, rc.b, colorRope, 1);
+        can.drawLine(rc.b, pM, colorRope, 1);
 
         const colorGraph = 'green';
         let prev: PointF;
@@ -115,9 +113,9 @@ export class AppComponent {
         let font = '20px Arial';
 
         can.drawText(PointF.Origin, "O", font, 'left', 'top');
-        can.drawText(rc.a, 'A', font, 'left', 'bottom');
+        can.drawText(rc.a, 'A', font, 'left', 'top');
         can.drawText(rc.b, 'B', font, 'left', 'bottom');;
-        can.drawText(rc.c, 'C', font, 'left', 'top');
+        can.drawText(rc.c, 'C', font, 'left', 'bottom');
         can.drawText(this.pD, 'D', font, 'left', 'bottom');
         can.drawText(pE, 'E', font, 'right', 'bottom');
 
