@@ -28,7 +28,7 @@ export class AppComponent {
     rMax = 70;
     r: number = this.rMin;
 
-    pD = new PointF(-12.7, 500);
+    pD = new PointF(-13, 500);
 
     rc0: Result;
     graph: PointF[];

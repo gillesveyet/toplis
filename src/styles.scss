@@ -1,1 +1,163 @@
-/* You can add global styles to this file, and also import other style files */
+.page {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    width: 100%;
+    z-index: 1;
+}
+
+.content {
+    overflow: auto;
+    flex: 1 1 1px;
+}
+
+$line-height: 21px;
+$input-padding: 2px;
+$input-lateral-padding: 8px;
+
+$default-height: 27px;
+$default-icon-size: 25px;
+
+@mixin form-item($labelWidth, $breakpoint) {
+    float: left;
+    display: inline-flex;
+    padding: 0;
+    margin-top: 1px;
+    width: 100%;
+    flex-wrap: nowrap;
+
+    @media screen and (max-width: $breakpoint) {
+        flex-wrap: wrap;
+    }
+
+    >.form-item-value {
+        line-height: $line-height;
+        padding: 2px 9px;
+    }
+
+    >label {
+        float: left;
+        width: $labelWidth;
+        padding: $input-padding $input-lateral-padding;
+        line-height: $line-height;
+        text-align: right;
+        flex: none;
+
+        @media screen and (max-width: $breakpoint) {
+            width: 100%;
+            text-align: left;
+            padding: .45em 10px .05em 0;
+        }
+    }
+
+    >.ui-inputtext,
+    >.ui-spinner,
+    >p-spinner,
+    >p-dropdown,
+    >p-checkbox {
+        float: left;
+        display: inline-flex;
+        flex: 1 1 1px;
+        max-width: $breakpoint - $labelWidth;
+
+        // &.input-default {
+        //     max-width: 250px;
+        // }
+
+        @media screen and (max-width: $breakpoint) {
+            flex: none;
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+    }
+
+    .ui-inputtext,
+    .ui-spinner {
+        width: 100%;
+        max-height: $default-height;
+    }
+
+    .ui-spinner-input.ui-inputtext {
+        text-align: right;
+    }
+}
+
+.form-item {
+    @include form-item(150px,
+    250px);
+}
+
+.g-row {
+    display: block;
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    flex-grow: 1;
+
+    &.col-align-right .g-col {
+        float: right;
+    }
+
+    &.g-row-empty {
+        // 25px content + 2px padding
+        height: 27px;
+    }
+}
+
+.g-col {
+    float: left;
+    display: block;
+    width: 100%;
+    max-width: 250px;
+    min-height: 1px;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    flex: none;
+
+    &.col-align-right {
+        float: right;
+    }
+
+    >button {
+        margin: 1px;
+    }
+}
+
+// .g-col.settings {
+//     max-width: 350px;
+//     .form-item {
+//         @include form-item(190px,
+//         350px);
+//     }
+// }
+
+.slider {
+    display: flex;
+    // flex-direction: column;
+    justify-content: center;
+    max-width: 30px;
+    height: 600px;
+    background-color: whitesmoke;
+
+    // >p-slider {
+    //     background-color: blueviolet !important;
+    // }
+
+    .ui-slider.ui-slider-vertical {
+        background-color: lightblue;
+        height: 100%;
+    }
+}
