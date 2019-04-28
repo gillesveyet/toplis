@@ -1,68 +1,66 @@
 <div class="page">
 
     <div class="header">
-        <h2>Toplis Level Luffing Crane Simulator</h2>
-        <span>See project and more links on: <a href="https://github.com/gillesveyet/toplis/">https://github.com/gillesveyet/toplis</a></span> 
+        <h3>Toplis Level Luffing Crane Simulator</h3>
+        <span>See project and more links on: <a href="https://github.com/gillesveyet/toplis/">https://github.com/gillesveyet/toplis</a></span>
     </div>
 
     <div class="content">
-        <div class="g-row">
-            <div class="g-col settings">
+        <div class="settings">
 
-                <div class="form-item">
-                    <label>OB (mm)</label>
-                    <p-spinner [(ngModel)]="dOB" [min]="1" [max]="2000" [step]="1" (onChange)="onSettingsChange()"></p-spinner>
-                </div>
-
-                <div class="form-item">
-                    <label>AB (mm)</label>
-                    <p-spinner [(ngModel)]="dAB" [min]="1" [max]="500" [step]="1" (onChange)="onSettingsChange()"></p-spinner>
-                </div>
-
-                <div class="form-item">
-                    <label>AC (mm)</label>
-                    <p-spinner [(ngModel)]="dAC" [min]="1" [max]="500" [step]="1" (onChange)="onSettingsChange()"></p-spinner>
-                </div>
-
-                <div class="form-item">
-                    <label>OE (mm)</label>
-                    <p-spinner [(ngModel)]="pD.x" [min]="-100" [max]="200" [step]="1" (onChange)="onSettingsChange()"></p-spinner>
-                </div>
-
-                <div class="form-item">
-                    <label>ED (mm)</label>
-                    <p-spinner [(ngModel)]="pD.y" [min]="0" [max]="500" [step]="1" (onChange)="onSettingsChange()"></p-spinner>
-                </div>
-
-                <div class="form-item">
-                    <label>Nb Ropes</label>
-                    <p-spinner [(ngModel)]="nbRopes" [min]="1" [max]="15" [step]="1" (onChange)="onSettingsChange()"></p-spinner>
-                </div>
-
-
-                <div class="form-item">
-                    <label>Angle Min (low)</label>
-                    <p-spinner [(ngModel)]="rMin" [min]="0" [max]="90" [step]="1" (onChange)="onSettingsChange()"></p-spinner>
-                </div>
-
-                <div class="form-item">
-                    <label>Angle Max (high)</label>
-                    <p-spinner [(ngModel)]="rMax" [min]="0" [max]="90" [step]="1" (onChange)="onSettingsChange()"></p-spinner>
-                </div>
+            <div class="form-item">
+                <label>OB (mm)</label>
+                <p-spinner [(ngModel)]="dOB" [min]="1" [max]="2000" [step]="1" (onChange)="onSettingsChange()"></p-spinner>
             </div>
 
-            <div class="g-col crane">
-                <canvas #canCrane class="can-crane" width="600" height="600"> </canvas>
+            <div class="form-item">
+                <label>AB (mm)</label>
+                <p-spinner [(ngModel)]="dAB" [min]="1" [max]="500" [step]="1" (onChange)="onSettingsChange()"></p-spinner>
             </div>
 
-            <div class="g-col slider">
-                <label>Angle</label>
-                <p-slider [(ngModel)]="r" [min]="rMin" [max]="rMax" [step]="1" orientation="vertical" (onChange)="onAngleChange()"></p-slider>
-                <label>{{r}}</label>
-
+            <div class="form-item">
+                <label>AC (mm)</label>
+                <p-spinner [(ngModel)]="dAC" [min]="1" [max]="500" [step]="1" (onChange)="onSettingsChange()"></p-spinner>
             </div>
+
+            <div class="form-item">
+                <label>OE (mm)</label>
+                <p-spinner [(ngModel)]="pD.x" [min]="-100" [max]="200" [step]="1" (onChange)="onSettingsChange()"></p-spinner>
+            </div>
+
+            <div class="form-item">
+                <label>ED (mm)</label>
+                <p-spinner [(ngModel)]="pD.y" [min]="0" [max]="500" [step]="1" (onChange)="onSettingsChange()"></p-spinner>
+            </div>
+
+            <div class="form-item">
+                <label>Nb Ropes</label>
+                <p-spinner [(ngModel)]="nbRopes" [min]="1" [max]="15" [step]="1" (onChange)="onSettingsChange()"></p-spinner>
+            </div>
+
+
+            <div class="form-item">
+                <label>Angle Min (low)</label>
+                <p-spinner [(ngModel)]="rMin" [min]="0" [max]="90" [step]="1" (onChange)="onSettingsChange()"></p-spinner>
+            </div>
+
+            <div class="form-item">
+                <label>Angle Max (high)</label>
+                <p-spinner [(ngModel)]="rMax" [min]="0" [max]="90" [step]="1" (onChange)="onSettingsChange()"></p-spinner>
+            </div>
+        </div>
+
+        <div class="crane">
+            <canvas #canCrane class="can-crane" width="600" height="600"> </canvas>
+        </div>
+
+        <div class="slider">
+            <label>Angle</label>
+            <p-slider [(ngModel)]="r" [min]="rMin" [max]="rMax" [step]="1" orientation="vertical" (onChange)="onAngleChange()"></p-slider>
+            <label>{{r}}</label>
 
         </div>
+
     </div>
 </div>
 

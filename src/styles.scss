@@ -8,8 +8,8 @@
     left: 0;
     right: 0;
 
-    .header{
-        margin-bottom: 20px;
+    .header {
+        margin-bottom: 15px;
         margin-left: 50px;
     }
 }
@@ -17,140 +17,63 @@
 .header {
     width: 100%;
     z-index: 1;
-    font: 20px arial, sans-serif;
+    font: 17px arial, sans-serif;
 
-    a:hover{
+    h3 {
+        margin-bottom: 8px;
+    }
+
+    a:hover {
         text-decoration: underline;
     }
 }
 
 .content {
     overflow: auto;
-    flex: 1 1 1px;
+    display: flex;
 }
 
 $line-height: 21px;
-$input-padding: 2px;
-$input-lateral-padding: 8px;
+$default-height: 25px;
 
-$default-height: 27px;
-$default-icon-size: 25px;
-
-@mixin form-item($labelWidth, $breakpoint) {
-    float: left;
-    display: inline-flex;
-    padding: 0;
-    margin-top: 1px;
-    width: 100%;
-    flex-wrap: nowrap;
-
-    @media screen and (max-width: $breakpoint) {
-        flex-wrap: wrap;
-    }
+.form-item {
+    margin-top: 3px;
 
     >label {
         float: left;
-        width: $labelWidth;
-        padding: $input-padding $input-lateral-padding;
+        width: 150px;
+        padding-right: 8px;
         line-height: $line-height;
         text-align: right;
-        flex: none;
-
-        @media screen and (max-width: $breakpoint) {
-            width: 100%;
-            text-align: left;
-            padding: .45em 10px .05em 0;
-        }
-    }
-
-    >.ui-inputtext,
-    >.ui-spinner,
-    >p-spinner,
-    >p-dropdown,
-    >p-checkbox {
-        float: left;
-        display: inline-flex;
-        flex: 1 1 1px;
-        max-width: $breakpoint - $labelWidth;
-
-        @media screen and (max-width: $breakpoint) {
-            flex: none;
-            width: 100% !important;
-            max-width: 100% !important;
-        }
-    }
-
-    .ui-inputtext,
-    .ui-spinner {
-        width: 100%;
-        max-height: $default-height;
     }
 
     .ui-spinner-input.ui-inputtext {
+        max-width: 80px;
+        max-height: $default-height;
         text-align: right;
     }
 }
 
-.form-item {
-    @include form-item(150px,
-    250px);
+.settings {
+    flex: 0 0 230px;
 }
 
-.g-row {
-    display: block;
-    max-width: 100%;
-    padding: 0;
-    margin: 0;
-    border: 0;
-    flex-grow: 1;
-
-    &.col-align-right .g-col {
-        float: right;
-    }
-
-    &.g-row-empty {
-        // 25px content + 2px padding
-        height: 27px;
-    }
-}
-
-.g-col {
-    float: left;
-    display: block;
-    width: 100%;
-    max-width: 250px;
-    min-height: 1px;
-    padding: 0;
-    margin: 0;
-    border: 0;
-    flex: none;
-}
-
-// .g-col.settings {
-//     max-width: 350px;
-//     .form-item {
-//         @include form-item(190px,
-//         350px);
-//     }
-// }
-
-.g-col.crane {
-    max-width: 600px;
+.crane {
+    flex: 0 1 600px;
     margin: 0 10px 0 10px;
 }
 
-.g-col.slider {
+.slider {
+    flex: 0 0 60px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    max-width: 60px;
-    height: 600px;
     background-color: whitesmoke;
 
     >label {
-        margin: 15px;
-        color:red;
+        margin: 12px;
+        color: red;
     }
 
     >p-slider {
@@ -167,11 +90,10 @@ $default-icon-size: 25px;
 // https://stackoverflow.com/questions/23372903/hide-spinner-in-input-number-firefox-29 
 input[type='number'] {
     -moz-appearance: textfield; // For FireFox
-  
+
     // For Webkits like Chrome and Safari (actually this is not necessary)
     // &::-webkit-inner-spin-button { 
     //   -webkit-appearance: none;
     //   margin: 0;
     // }
-  }
-
+}

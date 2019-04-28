@@ -2,7 +2,6 @@
     border: 1px solid black;
     background-size: contain;
 
-    // Only set the element’s size and not the drawing surface => do not use CSS to set canvas size.
-    // width: 600px;
-    // height: 600px;
+    //Note: canvas drawing surface (600x600) is and can only set in HTML.
+    width: 100%;
 }
