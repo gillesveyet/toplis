@@ -15,9 +15,20 @@
 .header {
     width: 100%;
     z-index: 1;
+    margin-bottom: 20px;
 
-    h1 { 
+    h1 {
         margin-left: 50px;
+        margin-bottom: 10px;
+    }
+
+    a {
+        font: 20px arial, sans-serif;
+        margin-left: 50px;
+    }
+
+    a:hover{
+        text-decoration: underline;
     }
 }
 
@@ -45,11 +56,6 @@ $default-icon-size: 25px;
         flex-wrap: wrap;
     }
 
-    >.form-item-value {
-        line-height: $line-height;
-        padding: 2px 9px;
-    }
-
     >label {
         float: left;
         width: $labelWidth;
@@ -74,10 +80,6 @@ $default-icon-size: 25px;
         display: inline-flex;
         flex: 1 1 1px;
         max-width: $breakpoint - $labelWidth;
-
-        // &.input-default {
-        //     max-width: 250px;
-        // }
 
         @media screen and (max-width: $breakpoint) {
             flex: none;
@@ -130,14 +132,6 @@ $default-icon-size: 25px;
     margin: 0;
     border: 0;
     flex: none;
-
-    &.col-align-right {
-        float: right;
-    }
-
-    >button {
-        margin: 1px;
-    }
 }
 
 // .g-col.settings {
@@ -148,17 +142,28 @@ $default-icon-size: 25px;
 //     }
 // }
 
-.slider {
+.g-col.crane {
+    max-width: 600px;
+    margin: 0 10px 0 10px;
+}
+
+.g-col.slider {
     display: flex;
-    // flex-direction: column;
+    flex-direction: column;
     justify-content: center;
-    max-width: 30px;
+    align-items: center;
+    max-width: 60px;
     height: 600px;
     background-color: whitesmoke;
 
-    // >p-slider {
-    //     background-color: blueviolet !important;
-    // }
+    >label {
+        margin: 15px;
+        color:red;
+    }
+
+    >p-slider {
+        flex: 1;
+    }
 
     .ui-slider.ui-slider-vertical {
         background-color: lightblue;

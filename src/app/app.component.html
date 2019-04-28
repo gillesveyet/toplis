@@ -2,6 +2,7 @@
 
     <div class="header">
         <h1>Toplis Level Luffing Crane Simulator</h1>
+        <a href="https://github.com/gillesveyet/toplis/">See project and more links on github</a> 
     </div>
 
     <div class="content">
@@ -50,14 +51,17 @@
                 </div>
             </div>
 
-            <div class="g-col slider">
-                <p-slider [(ngModel)]="r" [min]="rMin" [max]="rMax" [step]="1" orientation="vertical" (onChange)="onAngleChange()"></p-slider>
-                <!-- <label>Angle</label> -->
-            </div>
-
             <div class="g-col crane">
                 <canvas #canCrane class="can-crane" width="600" height="600"> </canvas>
             </div>
+
+            <div class="g-col slider">
+                <label>Angle</label>
+                <p-slider [(ngModel)]="r" [min]="rMin" [max]="rMax" [step]="1" orientation="vertical" (onChange)="onAngleChange()"></p-slider>
+                <label>{{r}}</label>
+
+            </div>
+
         </div>
     </div>
 </div>
