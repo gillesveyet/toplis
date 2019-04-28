@@ -162,3 +162,16 @@ $default-icon-size: 25px;
         height: 100%;
     }
 }
+
+// workaround for Firefox : do not show arrows on input/number as primeng spinner already shows its own arrows.
+// https://stackoverflow.com/questions/23372903/hide-spinner-in-input-number-firefox-29 
+input[type='number'] {
+    -moz-appearance: textfield; // For FireFox
+  
+    // For Webkits like Chrome and Safari (actually this is not necessary)
+    // &::-webkit-inner-spin-button { 
+    //   -webkit-appearance: none;
+    //   margin: 0;
+    // }
+  }
+
