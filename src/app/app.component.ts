@@ -18,17 +18,17 @@ class Result {
 export class AppComponent {
     ctx: CanvasRenderingContext2D;
 
-    dOB = 920;
-    dAB = 205;
-    dAC = 205;
+    dOB = 1200;
+    dAB = 160;
+    dAC = 105;
 
-    nbRopes = 3;
+    nbRopes = 5;
 
-    rMin = 20;
-    rMax = 70;
+    rMin = 30;
+    rMax = 75;
     r: number = this.rMin;
 
-    pD = new PointF(-13, 500);
+    pD = new PointF(-13, 395);
 
     rc0: Result;
     graph: PointF[];
