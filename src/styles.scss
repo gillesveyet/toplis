@@ -39,7 +39,7 @@ $default-height: 25px;
 .form-item {
     margin-top: 3px;
 
-    >label {
+    > label {
         float: left;
         width: 150px;
         padding-right: 8px;
@@ -71,12 +71,12 @@ $default-height: 25px;
     align-items: center;
     background-color: whitesmoke;
 
-    >label {
+    > label {
         margin: 12px;
         color: red;
     }
 
-    >p-slider {
+    > p-slider {
         flex: 1;
     }
 
@@ -87,12 +87,12 @@ $default-height: 25px;
 }
 
 // workaround for Firefox : do not show arrows on input/number as primeng spinner already shows its own arrows.
-// https://stackoverflow.com/questions/23372903/hide-spinner-in-input-number-firefox-29 
-input[type='number'] {
+// https://stackoverflow.com/questions/23372903/hide-spinner-in-input-number-firefox-29
+input[type="number"] {
     -moz-appearance: textfield; // For FireFox
 
     // For Webkits like Chrome and Safari (actually this is not necessary)
-    // &::-webkit-inner-spin-button { 
+    // &::-webkit-inner-spin-button {
     //   -webkit-appearance: none;
     //   margin: 0;
     // }
