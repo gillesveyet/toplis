@@ -51,7 +51,7 @@ export class AppComponent {
     }
 
     computePoints(angle: number): Result {
-        let dOA = this.dOB-this.dAB;
+        let dOA = this.dOB - this.dAB;
         let pA = new PointF(dOA, 0).rotate(angle);
         let pB = new PointF(this.dOB, 0).rotate(angle);
         let pC = new PointF(dOA, this.dAC).rotate(angle);
@@ -62,7 +62,7 @@ export class AppComponent {
     computeHeight(rc: Result) {
         let d0 = Util.calcDistance(this.rc0.c, this.pD);
         let d = Util.calcDistance(rc.c, this.pD);
-        return (d - d0) * this.nbRopes / this.nbRopesM  + rc.b.y - this.rc0.b.y;
+        return (d - d0) * this.nbRopes / this.nbRopesM + rc.b.y - this.rc0.b.y;
     }
 
     updateGraph() {
@@ -100,6 +100,16 @@ export class AppComponent {
         can.drawLine(this.pD, rc.c, colorRope, 1);
         can.drawLine(rc.c, rc.b, colorRope, 1);
         can.drawLine(rc.b, pM, colorRope, 1);
+
+        const colorBucket = 'orange';
+        const bh = 50;
+        const bx = 17;
+        const by = 30;
+        can.drawLine(pM, new PointF(pM.x, pM.y + bh), colorBucket, 1);
+        can.drawLine(pM, new PointF(pM.x - bx, pM.y + by), colorBucket, 1);
+        can.drawLine(pM, new PointF(pM.x + bx, pM.y + by), colorBucket, 1);
+        can.drawLine(new PointF(pM.x - bx, pM.y + by), new PointF(pM.x, pM.y + bh), colorBucket, 1);
+        can.drawLine(new PointF(pM.x + bx, pM.y + by), new PointF(pM.x, pM.y + bh), colorBucket, 1);
 
         const colorGraph = 'green';
         let prev: PointF;
