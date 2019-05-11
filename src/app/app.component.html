@@ -34,8 +34,13 @@
             </div>
 
             <div class="form-item">
-                <label>Nb Ropes</label>
+                <label>Nb Ropes (CD)</label>
                 <p-spinner [(ngModel)]="nbRopes" [min]="1" [max]="15" [step]="1" (onChange)="onSettingsChange()"></p-spinner>
+            </div>
+
+            <div class="form-item">
+                <label>Nb Ropes (BM)</label>
+                <p-spinner [(ngModel)]="nbRopesM" [min]="1" [max]="15" [step]="1" (onChange)="onSettingsChange()"></p-spinner>
             </div>
 
 

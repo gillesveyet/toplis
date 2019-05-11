@@ -23,6 +23,7 @@ export class AppComponent {
     dAC = 105;
 
     nbRopes = 5;
+    nbRopesM = 2;
 
     rMin = 30;
     rMax = 75;
@@ -61,7 +62,7 @@ export class AppComponent {
     computeHeight(rc: Result) {
         let d0 = Util.calcDistance(this.rc0.c, this.pD);
         let d = Util.calcDistance(rc.c, this.pD);
-        return (d - d0) * this.nbRopes / 2 + rc.b.y - this.rc0.b.y;
+        return (d - d0) * this.nbRopes / this.nbRopesM  + rc.b.y - this.rc0.b.y;
     }
 
     updateGraph() {
@@ -118,6 +119,7 @@ export class AppComponent {
         can.drawText(rc.c, 'C', font, 'left', 'bottom');
         can.drawText(this.pD, 'D', font, 'left', 'bottom');
         can.drawText(pE, 'E', font, 'right', 'bottom');
+        can.drawText(pM, 'M', font, 'left', 'top');
 
     }
 
